@@ -105,7 +105,7 @@ const deleteCandidate = async (req, res) => {
 const moveToEmployee = async (req, res) => {
   try {
     const candidate = await Candidate.findById(req.params.id);
-    
+
     if (!candidate) {
       return res.status(404).json({ message: 'Candidate not found' });
     }
@@ -114,10 +114,11 @@ const moveToEmployee = async (req, res) => {
       return res.status(400).json({ message: 'Only selected candidates can be moved to employees' });
     }
 
-
     const employeeExists = await Employee.findOne({ email: candidate.email });
+
     if (employeeExists) {
-      return res.status(400).json({ message: 'Employee with this email already exists' });
+      
+      return res.status(200).json(employeeExists);
     }
 
     const employee = await Employee.create({
@@ -129,17 +130,18 @@ const moveToEmployee = async (req, res) => {
     });
 
     if (employee) {
-     
-      // await candidate.deleteOne();
-      res.status(201).json(employee);
+      // await candidate.deleteOne(); // optional
+      return res.status(201).json(employee);
     } else {
-      res.status(400).json({ message: 'Failed to create employee' });
+      return res.status(400).json({ message: 'Failed to create employee' });
     }
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 const downloadResume = async (req, res) => {
   try {
