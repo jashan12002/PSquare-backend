@@ -42,7 +42,13 @@ if (!fs.existsSync(resumesDir)) {
 
 if (!fs.existsSync(documentsDir)) {
   fs.mkdirSync(documentsDir, { recursive: true });
+
+
 }
+
+app.get('/',(req, res) => {
+  res.send('API is running...');
+});
 
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
