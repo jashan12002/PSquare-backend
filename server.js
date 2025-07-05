@@ -54,6 +54,10 @@ app.use('/api/employees', employeeRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/leaves', leaveRoutes);
 
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
   
 if (process.env.NODE_ENV === 'production') {
 
