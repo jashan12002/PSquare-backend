@@ -118,7 +118,7 @@ const moveToEmployee = async (req, res) => {
 
     if (employeeExists) {
       
-      return res.status(200).json(employeeExists);
+      return res.status(201).json(employeeExists);
     }
 
     const employee = await Employee.create({
